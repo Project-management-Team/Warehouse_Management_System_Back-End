@@ -8,5 +8,6 @@ namespace WarehouseManagementSystem.Abstractions.Interfaces
         Task CreateCell(Whcells cell);
         Task<Whcells> GetCellById(int cellId);
         Task<Items> GetCellItem(int cellId);
+        Task RemoveCell(int cellId);
     }
 }

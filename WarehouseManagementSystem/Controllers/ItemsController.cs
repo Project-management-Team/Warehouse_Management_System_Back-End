@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using WarehouseManagementSystem.Abstractions.Interfaces;
 using WarehouseManagementSystem.Api.Controllers.Models;
@@ -24,10 +21,22 @@ namespace WarehouseManagementSystem.Api.Controllers
         public async Task CreateItem([FromBody] ItemModel model)
         {
             await _itemService.CreateItem(new Items
-            { 
+            {
                 SerialNumber = model.SerialNumber,
                 Description = model.Description
             });
+        }
+
+        [HttpDelete]
+        public async Task DeleteItem([FromQuery] int itemId)
+        {
+            await _itemService.RemoveItem(itemId);
+        }
+
+        [HttpPatch]
+        public async Task MoveItem([FromQuery] int itemId, [FromQuery] int currentCellId, [FromQuery] int destinationCellId)
+        {
+            await _itemService.MoveItem(itemId, currentCellId, destinationCellId);
         }
     }
 }

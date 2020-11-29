@@ -17,7 +17,7 @@ namespace WarehouseManagementSystem.Implementation.Services
             await DbContext.SaveChangesAsync();
         }
 
-        public async Task<Warehouse[]> GetAll()
+        public async Task<Warehouse[]> GetAllItems()
         {
             var warehouses = await DbContext.Warehouse.ToArrayAsync();
             return warehouses;

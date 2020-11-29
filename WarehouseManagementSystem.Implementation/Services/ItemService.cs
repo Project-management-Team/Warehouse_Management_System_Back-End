@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using WarehouseManagementSystem.Abstractions.Interfaces;
@@ -21,6 +22,45 @@ namespace WarehouseManagementSystem.Implementation.Services
         {
             var items = await DbContext.Items.Where(i => i.Whcells.Any(c => c.Whlocker.Whzone.Whid == whId)).ToArrayAsync();
             return items;
+        }
+
+        public async Task RemoveItem(int itemId)
+        {
+            var item = await DbContext.Items.FirstOrDefaultAsync(i => i.Id == itemId);
+
+            if (item == null)
+            {
+                throw new Exception("No entity found");
+            }
+
+            DbContext.Remove(item);
+            await DbContext.SaveChangesAsync();
+        }
+
+        public async Task MoveItem(int itemId, int currentCellId, int destinationCellId)
+        {
+            var currentCell = await DbContext.Whcells.FirstOrDefaultAsync(i => i.Id == currentCellId);
+
+            if (currentCell != null)
+            {
+                currentCell.ItemId = null;
+            }
+
+            var newCell = await DbContext.Whcells.FirstOrDefaultAsync(i => i.Id == destinationCellId);
+
+            if (newCell == null)
+            {
+                throw new Exception("No entity found");
+            }
+
+            if (newCell.ItemId != null)
+            {
+                throw new Exception("Cell is not empty");
+            }
+
+            newCell.ItemId = itemId;
+
+            await DbContext.SaveChangesAsync();
         }
     }
 }

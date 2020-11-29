@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using WarehouseManagementSystem.Abstractions.Interfaces;
@@ -27,6 +28,20 @@ namespace WarehouseManagementSystem.Implementation.Services
         {
             var locker = await DbContext.Whlockers.FirstOrDefaultAsync(z => z.Id == lockerId);
             return locker;
+        }
+
+        public async Task RemoveLocker(int lockerId)
+        {
+            var locker = await DbContext.Whlockers.Include(l=>l.Whcells).FirstOrDefaultAsync(i => i.Id == lockerId);
+
+            if (locker == null)
+            {
+                throw new Exception("No entity found");
+            }
+
+            DbContext.RemoveRange(locker.Whcells);
+            DbContext.Remove(locker);
+            await DbContext.SaveChangesAsync();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using WarehouseManagementSystem.Abstractions.Interfaces;
@@ -27,6 +28,21 @@ namespace WarehouseManagementSystem.Implementation.Services
         {
             var zone = await DbContext.Whzones.FirstOrDefaultAsync(z => z.Id == zoneId);
             return zone;
+        }
+
+        public async Task RemoveZone(int zoneId)
+        {
+            var zone = await DbContext.Whzones.Include(z => z.Whlockers).ThenInclude(l => l.Whcells).FirstOrDefaultAsync(i => i.Id == zoneId);
+
+            if (zone == null)
+            {
+                throw new Exception("No entity found");
+            }
+
+            DbContext.RemoveRange(zone.Whlockers.SelectMany(l => l.Whcells));
+            DbContext.RemoveRange(zone.Whlockers);
+            DbContext.Remove(zone);
+            await DbContext.SaveChangesAsync();
         }
     }
 }

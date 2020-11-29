@@ -6,6 +6,6 @@ namespace WarehouseManagementSystem.Abstractions.Interfaces
     public interface IWarehouseService
     {
         Task CreateWareHouse(Warehouse warehouse);
-        Task<Warehouse[]> GetAll();
+        Task<Warehouse[]> GetAllItems();
     }
 }

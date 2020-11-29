@@ -7,5 +7,7 @@ namespace WarehouseManagementSystem.Abstractions.Interfaces
     {
         Task CreateItem(Items item);
         Task<Items[]> GetWarehouseItems(int whId);
+        Task MoveItem(int itemId, int currentCellId, int destinationCellId);
+        Task RemoveItem(int itemId);
     }
 }

@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using WarehouseManagementSystem.Abstractions.Interfaces;
 using WarehouseManagementSystem.Api.Controllers.Models;
@@ -44,6 +41,12 @@ namespace WarehouseManagementSystem.Api.Controllers
         public async Task<Items> GetWhZones([FromQuery] int cellId)
         {
             return await _cellService.GetCellItem(cellId);
+        }
+
+        [HttpDelete]
+        public async Task RemoveCell ([FromQuery] int cellId)
+        {
+            await _cellService.RemoveCell(cellId);
         }
     }
 }

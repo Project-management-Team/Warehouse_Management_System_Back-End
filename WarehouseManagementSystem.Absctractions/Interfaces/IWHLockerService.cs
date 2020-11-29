@@ -8,5 +8,6 @@ namespace WarehouseManagementSystem.Abstractions.Interfaces
         Task CreateLocker(Whlockers locker);
         Task<Whlockers> GetLockerById(int lockerId);
         Task<Whlockers[]> GetZoneLockers(int zoneId);
+        Task RemoveLocker(int lockerId);
     }
 }

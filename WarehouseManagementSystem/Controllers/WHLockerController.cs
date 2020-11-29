@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using WarehouseManagementSystem.Abstractions.Interfaces;
 using WarehouseManagementSystem.Api.Controllers.Models;
@@ -41,9 +38,15 @@ namespace WarehouseManagementSystem.Api.Controllers
         }
 
         [HttpGet("zone-lockers")]
-        public async Task<Whlockers[]> GetWhZones([FromQuery] int zoneId)
+        public async Task<Whlockers[]> GetZoneLockers([FromQuery] int zoneId)
         {
             return await _lockerService.GetZoneLockers(zoneId);
+        }
+
+        [HttpDelete]
+        public async Task RemoveLocker([FromQuery] int lockerId)
+        {
+            await _lockerService.RemoveLocker(lockerId);
         }
     }
 }

@@ -8,5 +8,6 @@ namespace WarehouseManagementSystem.Abstractions.Interfaces
         Task CreateZone(Whzones zone);
         Task<Whzones[]> GetWhZones(int whId);
         Task<Whzones> GetZoneById(int zoneId);
+        Task RemoveZone(int zoneId);
     }
 }
