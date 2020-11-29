@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WarehouseManagementSystem.Absctractions\WarehouseManagementSystem.Absctractions.csproj" />
+    <ProjectReference Include="..\WarehouseManagementSystem.Shared\WarehouseManagementSystem.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
