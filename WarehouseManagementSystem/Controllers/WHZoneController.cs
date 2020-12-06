@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using WarehouseManagementSystem.Abstractions.Interfaces;
 using WarehouseManagementSystem.Api.Controllers.Models;
 using WarehouseManagementSystem.Shared.Database.Entities;
+using WarehouseManagementSystem.Shared.PublicModels;
 
 namespace WarehouseManagementSystem.Api.Controllers
 {
@@ -32,9 +33,21 @@ namespace WarehouseManagementSystem.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<Whzones> GetZoneById([FromQuery] int zoneId)
+        public async Task<ZoneInfo> GetZoneById([FromQuery] int zoneId)
         {
             return await _zoneService.GetZoneById(zoneId);
+        }
+
+        [HttpPost("book")]
+        public async Task BookZone([FromQuery] int zoneId, [FromQuery] int amount)
+        {
+            await _zoneService.BookZone(zoneId, amount);
+        }
+
+        [HttpPost("free")]
+        public async Task FreeZone([FromQuery] int zoneId)
+        {
+            await _zoneService.FreeZone(zoneId);
         }
 
         [HttpGet("wh-zones")]

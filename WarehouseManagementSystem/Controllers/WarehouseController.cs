@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using WarehouseManagementSystem.Abstractions.Interfaces;
 using WarehouseManagementSystem.Api.Controllers.Models;
 using WarehouseManagementSystem.Shared.Database.Entities;
+using WarehouseManagementSystem.Shared.PublicModels;
 
 namespace WarehouseManagementSystem.Api.Controllers
 {
@@ -33,6 +34,18 @@ namespace WarehouseManagementSystem.Api.Controllers
         public async Task<Items[]> GetWarehouseItems([FromQuery] int whId)
         {
             return await _itemService.GetWarehouseItems(whId);
+        }
+
+        [HttpGet("warehouses")]
+        public async Task<Warehouse[]> GetWarehouseItems()
+        {
+            return await _warehouseService.GetAllWarehouses();
+        }
+
+        [HttpGet("report")]
+        public async Task<WarehouseInfo> GetWarehouseReport([FromQuery] int whId)
+        {
+            return await _warehouseService.GetWarehouseReport(whId);
         }
     }
 }

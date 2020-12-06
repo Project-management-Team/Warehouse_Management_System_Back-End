@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using WarehouseManagementSystem.Abstractions.Interfaces;
 using WarehouseManagementSystem.Api.Controllers.Models;
 using WarehouseManagementSystem.Shared.Database.Entities;
+using WarehouseManagementSystem.Shared.PublicModels;
 
 namespace WarehouseManagementSystem.Api.Controllers
 {
@@ -31,8 +32,20 @@ namespace WarehouseManagementSystem.Api.Controllers
             });
         }
 
+        [HttpPost("book")]
+        public async Task BookLocker([FromQuery] int lockerId)
+        {
+            await _lockerService.BookLocker(lockerId);
+        }
+
+        [HttpPost("free")]
+        public async Task FreeLocker([FromQuery] int lockerId)
+        {
+            await _lockerService.FreeLocker(lockerId);
+        }
+
         [HttpGet]
-        public async Task<Whlockers> GetLockerById([FromQuery] int lockerId)
+        public async Task<LockerInfo> GetLockerById([FromQuery] int lockerId)
         {
             return await _lockerService.GetLockerById(lockerId);
         }
